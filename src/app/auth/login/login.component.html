@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row justify-content-center my-5">
+    <div class="col-6">
+      <div class="card">
+        <div class="card-body">
+          <!-- Default form login -->
+          <form class="text-center border border-light p-5" [formGroup]="loginFormGroup">
+
+            <!-- Sign in button -->
+            <button class="btn btn-info my-4" type="submit" (click)="login()">Sign in</button>
+
+            <!-- Register -->
+            <p>Not a member?
+              <a href="">Register</a>
+            </p>
+
+            <!-- Social login -->
+            <p>or sign in with:</p>
+
+            <a type="button" class="light-blue-text mx-2">
+              <i class="fab fa-facebook"></i>
+            </a>
+            <a type="button" class="light-blue-text mx-2">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a type="button" class="light-blue-text mx-2">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a type="button" class="light-blue-text mx-2">
+              <i class="fab fa-github"></i>
+            </a>
+
+          </form>
+          <!-- Default form login -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
