@@ -3,7 +3,12 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.15.
 
 This is a demo of using angular-oauth2-oidc with Keycloak.
- 
+
+![demo](images/demo.gif)
+
+### Server Side
+[Spring secured by Keycloak demo project](https://github.com/alexthelion/spring-secured-by-keycloak)
+
 ### Requirements
 Tested with the following Keycloak version:
 * [16.1.0](https://hub.docker.com/layers/jboss/keycloak/16.1.0/images/sha256-6ecb9492224c6cfbb55d43f64a5ab634145d8cc1eba14eae8c37e3afde89546e?context=explore)
