@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../auth/auth.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-redirect',
@@ -9,8 +8,7 @@ import {Router} from '@angular/router';
 })
 export class RedirectComponent implements OnInit {
 
-  constructor(private authService: AuthService,
-              private router: Router) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.redirectOnCallback();

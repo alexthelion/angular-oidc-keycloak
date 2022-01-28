@@ -13,6 +13,7 @@ export const authCodeFlowConfig: AuthConfig = {
   // The SPA's id. The SPA is registerd with this id at the auth-server
   // clientId: 'server.code',
   clientId: 'sample-client',
+  loginUrl: window.location.origin + '/login',
 
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
@@ -26,11 +27,12 @@ export const authCodeFlowConfig: AuthConfig = {
   // The first four are defined by OIDC.
   // Important: Request offline_access to get a refresh token
   // The api scope is a usecase specific one
-  scope: 'openid profile email',
+  scope: 'openid profile email offline_access',
   requireHttps: false,
   sessionChecksEnabled: false,
   showDebugInformation: true,
-  disableAtHashCheck: true
+  disableAtHashCheck: true,
+  // clockSkewInSec: 1
 };
 
 @Injectable({
@@ -55,19 +57,17 @@ export class AuthService {
    * Logout and clear storage
    */
   public logout(): void {
-    this.oauthService.logOut();
+    this.oauthService.revokeTokenAndLogout();
   }
 
   private configure() {
     this.oauthService.configure(authCodeFlowConfig);
-    // this.oauthService.setupAutomaticSilentRefresh();
+    this.oauthService.setupAutomaticSilentRefresh();
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-      setTimeout(() => {
-        if (this.hasValidIdToken()) {
-          this.oauthService.loadUserProfile();
-        }
-      }, 2500);
+      if (this.hasValidIdToken()) {
+        this.oauthService.loadUserProfile();
+      }
     });
   }
 
@@ -75,6 +75,9 @@ export class AuthService {
     this.oauthService.events.subscribe(event => {
       if (event instanceof OAuthErrorEvent) {
         console.error(event);
+        if (event.type === ('token_validation_error'  || 'token_refresh_error')) {
+          this.logout();
+        }
       } else if (event instanceof OAuthSuccessEvent) {
         if (event.type === 'token_received') {
           this.router.navigateByUrl('/home');

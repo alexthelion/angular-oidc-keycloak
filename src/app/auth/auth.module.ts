@@ -9,6 +9,7 @@ import {MdbCheckboxModule} from 'mdb-angular-ui-kit/checkbox';
 import {AuthService} from './auth.service';
 import {AuthConfig, OAuthModule} from 'angular-oauth2-oidc';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {environment} from '../../environments/environment';
 
 export function tokenGetter() {
   return sessionStorage.getItem("access_token");
@@ -31,7 +32,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://www.angular.at/api'],
+        allowedUrls: [environment.api_url],
         sendAccessToken: true,
       },
     }),
