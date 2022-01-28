@@ -18,4 +18,12 @@ export class ApiService {
         throw error;
       }));
   }
+
+  forbiddenTestApi(): Observable<string> {
+    return this.httpClient.get(environment.api_url +'/forbiddenTest/1').pipe(
+      map((result: any) => result.response),
+      catchError((error: HttpErrorResponse) => {
+        throw error;
+      }));
+  }
 }

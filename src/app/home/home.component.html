@@ -44,4 +44,11 @@
       <button class="btn btn-info" (click)="testApi()">Test Api</button>
     </div>
   </div>
+
+  <div class="row my-5">
+    <p *ngIf="!!response.length">{{response}}</p>
+    <div class="col-2">
+      <button class="btn btn-danger" (click)="forbiddenTest()">Test Api (forbidden - missing role)</button>
+    </div>
+  </div>
 </div>
