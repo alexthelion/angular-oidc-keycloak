@@ -19,6 +19,10 @@ Tested with the following Angular version:
 Tested with the following angular-oauth2-oidc version:
 * [angular-oauth2-oidc](https://github.com/manfredsteyer/angular-oauth2-oidc)
 
+### Sample Client Config in Keycloak
+![keycloak_client_config_part_1](images/keycloak_client_1.png)
+![angular-keycloak_client_config_part_2](images/keycloak_client_2.png)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
