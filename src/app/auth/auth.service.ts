@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthConfig, NullValidationHandler, OAuthErrorEvent, OAuthService, OAuthSuccessEvent, OAuthInfoEvent} from 'angular-oauth2-oidc';
 import {Router} from '@angular/router';
+import {Observable} from "rxjs";
+import {tap} from "rxjs/operators";
 
 export const authCodeFlowConfig: AuthConfig = {
   // Url of the Identity Provider
@@ -15,6 +17,9 @@ export const authCodeFlowConfig: AuthConfig = {
   clientId: 'sample-client',
   loginUrl: window.location.origin + '/login',
   logoutUrl: window.location.origin + '/logout',
+  // URL of the SPA to redirect the user after silent refresh
+  silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
+  postLogoutRedirectUri: window.location.origin + '/login',
 
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
@@ -30,8 +35,11 @@ export const authCodeFlowConfig: AuthConfig = {
   // The api scope is a usecase specific one
   scope: 'openid profile email offline_access',
   requireHttps: false,
-  sessionChecksEnabled: false,
   showDebugInformation: true,
+
+  // If true, the lib will try to check whether the user is still logged in on a regular basis
+  sessionChecksEnabled: true,
+  // sessionCheckIntervall: 1000,
   disableAtHashCheck: true,
   // clockSkewInSec: 1
 };
@@ -45,6 +53,7 @@ export class AuthService {
               private oauthService: OAuthService,
               private router: Router) {
     this.configure();
+    this.redirectOnCallback().subscribe();
   }
 
   /**
@@ -72,11 +81,12 @@ export class AuthService {
     });
   }
 
-  public redirectOnCallback(): void {
-    this.oauthService.events.subscribe(event => {
+  public redirectOnCallback(): Observable<any> {
+    return this.oauthService.events.pipe(tap(event => {
+      console.log(event);
       if (event instanceof OAuthErrorEvent) {
         console.error(event);
-        if (event.type === ('token_validation_error'  || 'token_refresh_error')) {
+        if (event.type === 'token_validation_error' || event.type === 'token_refresh_error') {
           this.logout();
         }
       } else if (event instanceof OAuthSuccessEvent) {
@@ -88,12 +98,12 @@ export class AuthService {
           console.info('token expires soon: ' + this.getTokenIdExpirationDate().toLocaleDateString());
         }
         if (event.type === 'logout') {
-          this.router.navigateByUrl('/home');
+          console.warn('logout');
         }
-      }  else {
+      } else {
         console.warn(event);
       }
-    });
+    }));
   }
 
   /**
@@ -149,5 +159,4 @@ export class AuthService {
   public hasValidIdToken(): boolean {
     return this.oauthService.hasValidIdToken();
   }
-
 }

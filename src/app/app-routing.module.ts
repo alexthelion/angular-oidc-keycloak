@@ -11,7 +11,10 @@ const routes: Routes = [
   {
     path: 'home', component: HomeComponent, canActivate: [AuthGuard]
   },
-  { path: 'callback', component: RedirectComponent}
+  {
+    path: 'callback',
+    component: RedirectComponent
+  }
 ];
 
 @NgModule({

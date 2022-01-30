@@ -1,16 +1,14 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LoginComponent} from './login/login.component';
 import {HttpClientModule} from '@angular/common/http';
-import { JwtModule } from "@auth0/angular-jwt";
 import {RouterModule, Routes} from '@angular/router';
 import {MdbFormsModule} from 'mdb-angular-ui-kit/forms';
 import {MdbCheckboxModule} from 'mdb-angular-ui-kit/checkbox';
-import {AuthService} from './auth.service';
-import {AuthConfig, OAuthModule} from 'angular-oauth2-oidc';
+import {OAuthModule} from 'angular-oauth2-oidc';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {environment} from '../../environments/environment';
-import { LogoutComponent } from './logout/logout.component';
+import {LogoutComponent} from './logout/logout.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("access_token");
@@ -22,6 +20,10 @@ const routes: Routes = [
   },
   {
     path: 'logout', component: LogoutComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'home'
   }
 ]
 
