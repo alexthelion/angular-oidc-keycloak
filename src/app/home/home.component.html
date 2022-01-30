@@ -28,7 +28,7 @@
         </li>
       </ul>
       <span class="navbar-text">
-        <a class="nav-link" (click)="logout()" href="#">
+        <a class="nav-link" [routerLink]="['/logout']">
           {{userName}}
           <i class="fas fa-sign-out-alt"></i>
         </a>

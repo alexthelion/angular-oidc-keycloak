@@ -14,6 +14,7 @@ export const authCodeFlowConfig: AuthConfig = {
   // clientId: 'server.code',
   clientId: 'sample-client',
   loginUrl: window.location.origin + '/login',
+  logoutUrl: window.location.origin + '/logout',
 
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
@@ -57,7 +58,7 @@ export class AuthService {
    * Logout and clear storage
    */
   public logout(): void {
-    this.oauthService.revokeTokenAndLogout();
+    this.oauthService.logOut();
   }
 
   private configure() {
@@ -86,7 +87,10 @@ export class AuthService {
         if (event.type === 'token_expires') {
           console.info('token expires soon: ' + this.getTokenIdExpirationDate().toLocaleDateString());
         }
-      } else {
+        if (event.type === 'logout') {
+          this.router.navigateByUrl('/home');
+        }
+      }  else {
         console.warn(event);
       }
     });

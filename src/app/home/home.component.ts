@@ -24,10 +24,6 @@ export class HomeComponent implements OnInit {
     }, error => alert(error.error.error + ' - ' + error.error.status));
   }
 
-  logout(): void {
-    this.authService.logout();
-  }
-
   forbiddenTest(): void {
     this.apiService.forbiddenTestApi().subscribe(result => {
       this.response = result;

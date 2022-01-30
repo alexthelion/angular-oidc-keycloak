@@ -10,6 +10,7 @@ import {AuthService} from './auth.service';
 import {AuthConfig, OAuthModule} from 'angular-oauth2-oidc';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {environment} from '../../environments/environment';
+import { LogoutComponent } from './logout/logout.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem("access_token");
@@ -18,12 +19,16 @@ export function tokenGetter() {
 const routes: Routes = [
   {
     path: 'login', component: LoginComponent
+  },
+  {
+    path: 'logout', component: LogoutComponent
   }
 ]
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     CommonModule,
