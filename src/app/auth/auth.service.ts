@@ -1,48 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {AuthConfig, NullValidationHandler, OAuthErrorEvent, OAuthService, OAuthSuccessEvent, OAuthInfoEvent} from 'angular-oauth2-oidc';
+import {
+  NullValidationHandler,
+  OAuthErrorEvent,
+  OAuthInfoEvent,
+  OAuthService,
+  OAuthSuccessEvent
+} from 'angular-oauth2-oidc';
 import {Router} from '@angular/router';
 import {Observable} from "rxjs";
 import {tap} from "rxjs/operators";
-
-export const authCodeFlowConfig: AuthConfig = {
-  // Url of the Identity Provider
-  issuer: 'http://localhost:8180/auth/realms/master',
-
-  // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.origin + '/callback',
-
-  // The SPA's id. The SPA is registerd with this id at the auth-server
-  // clientId: 'server.code',
-  clientId: 'sample-client',
-  loginUrl: window.location.origin + '/login',
-  logoutUrl: window.location.origin + '/logout',
-  // URL of the SPA to redirect the user after silent refresh
-  silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
-  postLogoutRedirectUri: window.location.origin + '/login',
-
-  // Just needed if your auth server demands a secret. In general, this
-  // is a sign that the auth server is not configured with SPAs in mind
-  // and it might not enforce further best practices vital for security
-  // such applications.
-  // dummyClientSecret: 'secret',
-
-  responseType: 'code',
-
-  // set the scope for the permissions the client should request
-  // The first four are defined by OIDC.
-  // Important: Request offline_access to get a refresh token
-  // The api scope is a usecase specific one
-  scope: 'openid profile email offline_access',
-  requireHttps: false,
-  showDebugInformation: true,
-
-  // If true, the lib will try to check whether the user is still logged in on a regular basis
-  sessionChecksEnabled: true,
-  // sessionCheckIntervall: 1000,
-  disableAtHashCheck: true,
-  // clockSkewInSec: 1
-};
 
 @Injectable({
   providedIn: 'root'
@@ -56,22 +23,7 @@ export class AuthService {
     this.redirectOnCallback().subscribe();
   }
 
-  /**
-   * Redirect to keycloak login page by client id
-   */
-  public login() {
-    this.oauthService.initCodeFlow();
-  }
-
-  /**
-   * Logout and clear storage
-   */
-  public logout(): void {
-    this.oauthService.logOut();
-  }
-
-  private configure() {
-    this.oauthService.configure(authCodeFlowConfig);
+  private configure(): void {
     this.oauthService.setupAutomaticSilentRefresh();
     this.oauthService.tokenValidationHandler = new NullValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
@@ -81,6 +33,37 @@ export class AuthService {
     });
   }
 
+  private getJwtAsObject(): any {
+    const accessToken: string = this.oauthService.getAccessToken();
+    const tokens: string[] = accessToken.split('.');
+    return JSON.parse(atob(tokens[1]));
+  }
+
+  /**
+   * Extract the username from the Keycloak generated access token (JWT)
+   */
+  public getUserName(): string {
+    return this.getJwtAsObject().preferred_username;
+  }
+
+  /**
+   * Extract the expiration date of id token
+   */
+  public getTokenIdExpirationDate(): Date {
+    return new Date(this.oauthService.getIdTokenExpiration());
+  }
+
+  /**
+   * Extracts the JWT Issuer from the Keycloak generated access token
+   */
+  public getIssuer(): string {
+    const claims = this.getJwtAsObject();
+    return claims['iss'];
+  }
+
+  /**
+   * Handle incoming events from keycloak
+   */
   public redirectOnCallback(): Observable<any> {
     return this.oauthService.events.pipe(tap(event => {
       console.log(event);
@@ -107,20 +90,6 @@ export class AuthService {
   }
 
   /**
-   * Extract the username from the Keycloak generated access token (JWT)
-   */
-  public getUserName(): string {
-    return this.getJwtAsObject().preferred_username;
-  }
-
-  /**
-   * Extract the expiration date of id token
-   */
-  public getTokenIdExpirationDate(): Date {
-    return new Date(this.oauthService.getIdTokenExpiration());
-  }
-
-  /**
    * Extract the roles from the realm_access claim within the Keycloak generated access token (JWT)
    */
   public getClaims(): string[] {
@@ -139,24 +108,31 @@ export class AuthService {
   }
 
   /**
-   * Extracts the JWT Issuer from the Keycloak generated access token
-   */
-  public getIssuer(): string {
-    const claims = this.getJwtAsObject();
-    return claims['iss'];
-  }
-
-  private getJwtAsObject(): any {
-    const accessToken: string = this.oauthService.getAccessToken();
-    const tokens: string[] = accessToken.split('.');
-    return JSON.parse(atob(tokens[1]));
-  }
-
-  /**
    * Determines if the current user has a valid id token
    * Returns true if an IdToken exists and not expired within the session storage, false otherwise
    */
   public hasValidIdToken(): boolean {
     return this.oauthService.hasValidIdToken();
+  }
+
+  /**
+   * Redirect to keycloak login page by client id
+   */
+  public login() {
+    this.oauthService.initCodeFlow();
+  }
+
+  /**
+   * Logout and clear storage
+   */
+  public logout(): void {
+    this.oauthService.logOut();
+  }
+
+  /**
+   * Refresh token request
+   */
+  public refreshToken(): void {
+    this.oauthService.refreshToken();
   }
 }
