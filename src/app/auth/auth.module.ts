@@ -9,10 +9,7 @@ import {OAuthModule} from 'angular-oauth2-oidc';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {environment} from '../../environments/environment';
 import {LogoutComponent} from './logout/logout.component';
-
-export function tokenGetter() {
-  return sessionStorage.getItem("access_token");
-}
+import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -23,14 +20,16 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'home'
+    pathMatch: 'full',
+    component: PageNotFoundComponent
   }
 ]
 
 @NgModule({
   declarations: [
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
