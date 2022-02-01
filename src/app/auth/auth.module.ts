@@ -10,10 +10,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {environment} from '../../environments/environment';
 import {LogoutComponent} from './logout/logout.component';
 
-export function tokenGetter() {
-  return sessionStorage.getItem("access_token");
-}
-
 const routes: Routes = [
   {
     path: 'login', component: LoginComponent

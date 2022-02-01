@@ -60,7 +60,7 @@ export class AuthService {
    * Redirect to keycloak login page by client id
    */
   public login() {
-    this.oauthService.initCodeFlow();
+    this.oauthService.initLoginFlow();
   }
 
   /**
@@ -95,7 +95,7 @@ export class AuthService {
         }
       } else if (event instanceof OAuthInfoEvent) {
         if (event.type === 'token_expires') {
-          console.info('token expires soon: ' + this.getTokenIdExpirationDate().toLocaleDateString());
+          console.info('token expires soon: ' + this.getTokenIdExpirationDate().toISOString());
         }
         if (event.type === 'logout') {
           console.warn('logout');
