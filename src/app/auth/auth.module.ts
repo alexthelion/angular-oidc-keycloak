@@ -43,7 +43,10 @@ const routes: Routes = [
   providers: []
 })
 export class AuthModule {
-  static forRoot(authConfig: AuthConfig, authModuleConfig: OAuthModuleConfig, storageFactory: () => OAuthStorage):
+  static forRoot(authConfig: AuthConfig,
+                 authModuleConfig: OAuthModuleConfig,
+                 storageFactory: () => OAuthStorage,
+                 homepagePath: string):
     ModuleWithProviders<AuthModule> {
     return {
       ngModule: AuthModule,
@@ -51,6 +54,7 @@ export class AuthModule {
         { provide: AuthConfig, useValue: authConfig },
         { provide: OAuthModuleConfig, useValue: authModuleConfig },
         { provide: OAuthStorage, useFactory: storageFactory },
+        { provide: 'HOMEPAGE_PATH', useValue: homepagePath },
       ]
     };
   }

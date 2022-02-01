@@ -55,7 +55,7 @@ export function storageFactory(): OAuthStorage {
     MdbTooltipModule,
     MdbValidationModule,
     BrowserAnimationsModule,
-    AuthModule.forRoot(authConfig, authModuleConfig, storageFactory)
+    AuthModule.forRoot(authConfig, authModuleConfig, storageFactory, '/home')
   ],
   providers: [],
   bootstrap: [AppComponent]

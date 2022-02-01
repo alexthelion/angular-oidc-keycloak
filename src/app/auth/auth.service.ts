@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {
   NullValidationHandler,
@@ -18,7 +18,8 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient,
               private oauthService: OAuthService,
-              private router: Router) {
+              private router: Router,
+              @Inject('HOMEPAGE_PATH') private homepagePath: string) {
     this.configure();
     this.redirectOnCallback().subscribe();
   }
@@ -74,7 +75,7 @@ export class AuthService {
         }
       } else if (event instanceof OAuthSuccessEvent) {
         if (event.type === 'token_received') {
-          this.router.navigateByUrl('/home');
+          this.navigateToHomepage();
         }
       } else if (event instanceof OAuthInfoEvent) {
         if (event.type === 'token_expires') {
@@ -87,6 +88,10 @@ export class AuthService {
         console.warn(event);
       }
     }));
+  }
+
+  private navigateToHomepage(): void {
+    this.router.navigateByUrl(this.homepagePath);
   }
 
   /**
