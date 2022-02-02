@@ -10,6 +10,7 @@ import {
 import {Router} from '@angular/router';
 import {Observable} from "rxjs";
 import {tap} from "rxjs/operators";
+import {AuthRoutes} from './model/auth.routes';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient,
               private oauthService: OAuthService,
               private router: Router,
-              @Inject('HOMEPAGE_PATH') private homepagePath: string) {
+              @Inject(AuthRoutes) private authRoutes: AuthRoutes) {
     this.configure();
     this.redirectOnCallback().subscribe();
   }
@@ -91,7 +92,7 @@ export class AuthService {
   }
 
   private navigateToHomepage(): void {
-    this.router.navigate([this.homepagePath]);
+    this.router.navigate([this.authRoutes.homePagePath]);
   }
 
   /**

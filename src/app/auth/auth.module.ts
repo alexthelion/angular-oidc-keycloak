@@ -8,6 +8,7 @@ import {AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage} from 'angular-
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LogoutComponent} from './logout/logout.component';
 import {RedirectComponent} from './redirect/redirect.component';
+import {AuthRoutes} from './model/auth.routes';
 
 const routes: Routes = [
   {
@@ -41,15 +42,14 @@ export class AuthModule {
   static forRoot(authConfig: AuthConfig,
                  authModuleConfig: OAuthModuleConfig,
                  storageFactory: () => OAuthStorage,
-                 homepagePath: string):
-    ModuleWithProviders<AuthModule> {
+                 authRoutesFactory: () => AuthRoutes): ModuleWithProviders<AuthModule> {
     return {
       ngModule: AuthModule,
       providers: [
         { provide: AuthConfig, useValue: authConfig },
         { provide: OAuthModuleConfig, useValue: authModuleConfig },
         { provide: OAuthStorage, useFactory: storageFactory },
-        { provide: 'HOMEPAGE_PATH', useValue: homepagePath },
+        { provide: AuthRoutes, useFactory: authRoutesFactory },
       ]
     };
   }
