@@ -9,27 +9,19 @@ import {AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage} from 'angular-
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LogoutComponent} from './logout/logout.component';
 
-import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-
 const routes: Routes = [
   {
     path: 'login', component: LoginComponent
   },
   {
     path: 'logout', component: LogoutComponent
-  },
-  {
-    path: '**',
-    pathMatch: 'full',
-    component: PageNotFoundComponent
   }
 ]
 
 @NgModule({
   declarations: [
     LoginComponent,
-    LogoutComponent,
-    PageNotFoundComponent
+    LogoutComponent
   ],
   imports: [
     CommonModule,
