@@ -91,7 +91,7 @@ export class AuthService {
   }
 
   private navigateToHomepage(): void {
-    this.router.navigateByUrl(this.homepagePath);
+    this.router.navigate([this.homepagePath]);
   }
 
   /**
@@ -124,7 +124,7 @@ export class AuthService {
    * Redirect to keycloak login page by client id
    */
   public login() {
-    this.oauthService.initCodeFlow();
+    this.oauthService.initLoginFlow();
   }
 
   /**

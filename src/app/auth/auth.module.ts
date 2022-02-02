@@ -1,6 +1,5 @@
 import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {LoginComponent} from './login/login.component';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 import {MdbFormsModule} from 'mdb-angular-ui-kit/forms';
@@ -8,20 +7,23 @@ import {MdbCheckboxModule} from 'mdb-angular-ui-kit/checkbox';
 import {AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage} from 'angular-oauth2-oidc';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LogoutComponent} from './logout/logout.component';
+import {RedirectComponent} from './redirect/redirect.component';
 
 const routes: Routes = [
   {
-    path: 'login', component: LoginComponent
+    path: 'logout',
+    component: LogoutComponent
   },
   {
-    path: 'logout', component: LogoutComponent
+    path: 'callback',
+    component: RedirectComponent
   }
 ]
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    RedirectComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     OAuthModule.forRoot(),
-    RouterModule.forChild(routes),
+    RouterModule.forRoot(routes),
     MdbFormsModule,
     MdbCheckboxModule
   ],

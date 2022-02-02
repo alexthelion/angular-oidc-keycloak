@@ -8,11 +8,11 @@ import {MdbDropdownModule} from 'mdb-angular-ui-kit/dropdown';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HomeComponent} from './home/home.component';
 import {AuthModule} from './auth/auth.module';
-import {RedirectComponent} from './redirect/redirect.component';
 import {OAuthStorage} from 'angular-oauth2-oidc';
 import {authConfig} from './auth-config';
 import {authModuleConfig} from './auth-module-config';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {LoginModule} from './login/login.module';
 
 export function storageFactory(): OAuthStorage {
   return sessionStorage;
@@ -22,7 +22,6 @@ export function storageFactory(): OAuthStorage {
   declarations: [
     AppComponent,
     HomeComponent,
-    RedirectComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -31,6 +30,7 @@ export function storageFactory(): OAuthStorage {
     MdbDropdownModule,
     BrowserAnimationsModule,
     AuthModule.forRoot(authConfig, authModuleConfig, storageFactory, '/home'),
+    LoginModule,
     AppRoutingModule
   ],
   providers: [],
