@@ -13,7 +13,6 @@ export const authConfig: AuthConfig = {
   loginUrl: window.location.origin + '/login',
   logoutUrl: window.location.origin + '/logout',
   // URL of the SPA to redirect the user after silent refresh
-  useSilentRefresh: true,
   silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
   postLogoutRedirectUri: window.location.origin + '/login',
 
