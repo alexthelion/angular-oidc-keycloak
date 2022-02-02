@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../auth/auth.service';
-import {Router} from "@angular/router";
 import {of} from "rxjs";
-import {delay, first, tap} from "rxjs/operators";
+import {delay, tap} from "rxjs/operators";
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-redirect',
@@ -13,8 +12,7 @@ export class RedirectComponent implements OnInit, OnDestroy {
 
   private subscription: any;
 
-  constructor(private authService: AuthService,
-              private router: Router) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.subscription = of('').pipe(

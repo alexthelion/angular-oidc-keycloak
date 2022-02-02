@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../auth.service';
-import {FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +9,10 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  loginFormGroup: FormGroup;
-
-  constructor(private authService: AuthService, private router: Router) {
-    this.loginFormGroup = new FormGroup({});
-    if (!this.authService.hasValidIdToken()) {
-      this.router.navigate(['/login']);
+  constructor(private authService: AuthService,
+              private router: Router) {
+    if (this.authService.hasValidIdToken()) {
+      this.router.navigate(['/home']);
     }
   }
 
