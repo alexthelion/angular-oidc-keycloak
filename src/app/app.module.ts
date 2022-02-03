@@ -40,9 +40,13 @@ export function authRoutesFactory(): AuthRoutes {
     LoginModule,
     AppRoutingModule
   ],
-  providers: [{
-    provide: AuthServiceProvider, useClass: AuthService
-  }],
+  providers: [
+    {
+      provide: 'AuthServiceProvider',
+      useClass: AuthService
+    }
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

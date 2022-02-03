@@ -10,7 +10,7 @@ import {AuthInterface, AuthServiceProvider} from '../auth/auth.interface';
 export class HomeComponent implements OnInit {
   userName: string = '';
   response: string = '';
-  constructor(@Inject(AuthServiceProvider) private authService: AuthInterface,
+  constructor(@Inject('AuthServiceProvider') private authService: AuthInterface,
               private apiService: ApiService) {
     this.userName = this.authService.getUserName();
   }
