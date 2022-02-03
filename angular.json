@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "keycloak-login-poc": {
+    "ngx-rs-auth-oidc": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/keycloak-login-poc",
+            "outputPath": "dist/ngx-rs-auth-oidc",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "keycloak-login-poc:build:production"
+              "browserTarget": "ngx-rs-auth-oidc:build:production"
             },
             "development": {
-              "browserTarget": "keycloak-login-poc:build:development"
+              "browserTarget": "ngx-rs-auth-oidc:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "keycloak-login-poc:build"
+            "browserTarget": "ngx-rs-auth-oidc:build"
           }
         },
         "test": {
@@ -106,7 +106,38 @@
           }
         }
       }
+    },
+    "RSAuthOIDC": {
+      "projectType": "library",
+      "root": "projects/auth",
+      "sourceRoot": "projects/auth/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/auth/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/auth/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/auth/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/auth/src/test.ts",
+            "tsConfig": "projects/auth/tsconfig.spec.json",
+            "karmaConfig": "projects/auth/karma.conf.js"
+          }
+        }
+      }
     }
   },
-  "defaultProject": "keycloak-login-poc"
+  "defaultProject": "ngx-rs-auth-oidc"
 }

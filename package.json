@@ -1,12 +1,14 @@
 {
-  "name": "keycloak-login-poc",
+  "name": "ngx-rs-auth-oidc",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build-library-prod": "ng build RSAuthOIDC --prod",
+    "publish-library": "npm publish ./dist/ngx-rs-auth-oidc"
   },
   "private": true,
   "dependencies": {
@@ -39,6 +41,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
+    "ng-packagr": "^12.1.1",
     "typescript": "~4.3.5"
   }
 }
