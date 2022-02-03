@@ -1,0 +1,31 @@
+{
+  "name": "ngx-rs-auth-oidc",
+  "version": "0.0.1",
+  "description": "Auth wrapper for using angular-oauth2-oidc with Keycloak.",
+  "author": "RSinntoech",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexthelion/angular-oidc-keycloak.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alexthelion/angular-oidc-keycloak/issues"
+  },
+  "homepage": "https://github.com/alexthelion/angular-oidc-keycloak",
+  "keywords": [
+    "angular",
+    "keycloak",
+    "auth 2.0",
+    "oidc",
+    "typescript",
+    "rsinnotech",
+    "angular-oauth2-oidc"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^12.2.0",
+    "@angular/core": "^12.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  }
+}

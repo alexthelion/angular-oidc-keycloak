@@ -1,6 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, Injector, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthService} from '../auth/auth.service';
+
+export interface AuthService {
+   login(): void;
+
+   hasValidIdToken(): boolean;
+ }
 
 @Component({
   selector: 'app-login',
@@ -9,7 +14,8 @@ import {AuthService} from '../auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService,
+  constructor(@Inject('AuthServiceProvider') private authService: AuthService,
+              private injector: Injector,
               private router: Router) {
     if (this.authService.hasValidIdToken()) {
       this.router.navigate(['/home']);

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../auth/auth.service';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ApiService} from './api.service';
+import {AuthInterface, AuthServiceProvider} from '../auth/auth.interface';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,7 @@ import {ApiService} from './api.service';
 export class HomeComponent implements OnInit {
   userName: string = '';
   response: string = '';
-  constructor(private authService: AuthService,
+  constructor(@Inject('AuthServiceProvider') private authService: AuthInterface,
               private apiService: ApiService) {
     this.userName = this.authService.getUserName();
   }
