@@ -11,11 +11,12 @@ import {Router} from '@angular/router';
 import {Observable} from "rxjs";
 import {tap} from "rxjs/operators";
 import {AuthRoutes} from './model/auth.routes';
+import {AuthInterface} from './auth.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements AuthInterface {
 
   constructor(private httpClient: HttpClient,
               private oauthService: OAuthService,
@@ -124,7 +125,7 @@ export class AuthService {
   /**
    * Redirect to keycloak login page by client id
    */
-  public login() {
+  public login(): void {
     this.oauthService.initLoginFlow();
   }
 

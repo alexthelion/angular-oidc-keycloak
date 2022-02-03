@@ -14,6 +14,8 @@ import {authModuleConfig} from './auth-module-config';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
 import {LoginModule} from './login/login.module';
 import {AuthRoutes} from './auth/model/auth.routes';
+import {AuthServiceProvider} from './auth/auth.interface';
+import {AuthService} from './auth/auth.service';
 
 export function storageFactory(): OAuthStorage {
   return sessionStorage;
@@ -38,7 +40,9 @@ export function authRoutesFactory(): AuthRoutes {
     LoginModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [{
+    provide: AuthServiceProvider, useClass: AuthService
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

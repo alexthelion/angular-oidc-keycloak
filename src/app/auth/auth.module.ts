@@ -26,6 +26,7 @@ const routes: Routes = [
     LogoutComponent,
     RedirectComponent
   ],
+  exports: [],
   imports: [
     CommonModule,
     HttpClientModule,
