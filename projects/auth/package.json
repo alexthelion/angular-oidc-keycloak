@@ -1,6 +1,6 @@
 {
   "name": "ngx-rs-auth-oidc",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Auth wrapper for using angular-oauth2-oidc with Keycloak.",
   "author": "RSinntoech",
   "repository": {
@@ -22,8 +22,7 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/common": "^12.2.0",
-    "@angular/core": "^12.2.0"
+    "angular-oauth2-oidc": "^13.0.1"
   },
   "dependencies": {
     "tslib": "^2.3.0"

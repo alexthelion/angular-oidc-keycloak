@@ -1,6 +1,6 @@
 {
   "name": "ngx-rs-auth-oidc",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -25,6 +25,7 @@
     "angular-oauth2-oidc": "^13.0.1",
     "angular-oauth2-oidc-jwks": "^13.0.1",
     "mdb-angular-ui-kit": "^1.6.0",
+    "ngx-rs-auth-oidc": "^0.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

@@ -1,14 +1,11 @@
 import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
-import {MdbFormsModule} from 'mdb-angular-ui-kit/forms';
-import {MdbCheckboxModule} from 'mdb-angular-ui-kit/checkbox';
 import {AuthConfig, OAuthModule, OAuthModuleConfig, OAuthStorage} from 'angular-oauth2-oidc';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LogoutComponent} from './logout/logout.component';
 import {RedirectComponent} from './redirect/redirect.component';
 import {AuthRoutes} from './model/auth.routes';
+import {HttpClientModule} from "@angular/common/http";
 
 const routes: Routes = [
   {
@@ -30,12 +27,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
     OAuthModule.forRoot(),
     RouterModule.forRoot(routes),
-    MdbFormsModule,
-    MdbCheckboxModule
   ],
   providers: []
 })
